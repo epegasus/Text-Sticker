@@ -6,11 +6,13 @@ import android.text.Layout
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import dev.pegasus.stickers.R.drawable
 import dev.pegasus.stickers.StickerView
 import dev.pegasus.stickers.TextSticker
 import dev.pegasus.stickers.helper.Sticker
 import dev.pegasus.stickers.helper.events.DeleteIconEvent
 import dev.pegasus.stickers.ui.BitmapStickerIcon
+import dev.pegasus.stickers.ui.DrawableSticker
 import dev.pegasus.textsticker.databinding.ActivityMainBinding
 
 private const val TAG = "ePegasus"
@@ -43,7 +45,9 @@ class MainActivity : AppCompatActivity() {
         sticker.setTextColor(Color.BLUE)
         sticker.setTextAlign(Layout.Alignment.ALIGN_CENTER)
         sticker.resizeText()
+        val drawableSticker = DrawableSticker(ContextCompat.getDrawable(this, drawable.img_dummy))
         binding.svViewMain.addSticker(sticker)
+        binding.svViewMain.addSticker(drawableSticker)
     }
 
     private fun listener() {

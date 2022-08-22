@@ -40,8 +40,8 @@ import dev.pegasus.stickers.ui.BitmapStickerIcon;
 
 public class StickerView extends FrameLayout {
 
-    private final boolean showIcons;
-    private final boolean showBorder;
+    private boolean showIcons;
+    private boolean showBorder;
     private final boolean bringToFrontCurrentSticker;
 
     @IntDef({ActionMode.NONE, ActionMode.DRAG, ActionMode.ZOOM_WITH_TWO_FINGER, ActionMode.ICON, ActionMode.CLICK})
@@ -128,7 +128,7 @@ public class StickerView extends FrameLayout {
             borderPaint.setAntiAlias(true);
             borderPaint.setColor(a.getColor(R.styleable.StickerView_borderColor, Color.BLACK));
             borderPaint.setAlpha(a.getInteger(R.styleable.StickerView_borderAlpha, 128));
-
+            borderPaint.setStrokeWidth(2.0f);
 
             configDefaultIcons();
         } finally {
@@ -136,6 +136,12 @@ public class StickerView extends FrameLayout {
                 a.recycle();
             }
         }
+    }
+
+    public void showBorder(boolean isBorder) {
+        showBorder = isBorder;
+        showIcons = isBorder;
+        invalidate();
     }
 
     public void configDefaultIcons() {
@@ -750,7 +756,7 @@ public class StickerView extends FrameLayout {
         heightScaleFactor = (float) getHeight() / sticker.getDrawable().getIntrinsicHeight();
         scaleFactor = widthScaleFactor > heightScaleFactor ? heightScaleFactor : widthScaleFactor;
 
-        sticker.getMatrix().postScale(scaleFactor / 2, scaleFactor / 2, (getWidth()+100) / 2, getHeight() / 2);
+        sticker.getMatrix().postScale(scaleFactor / 2, scaleFactor / 2, (getWidth() + 100) / 2, getHeight() / 2);
 
         handlingSticker = sticker;
         stickers.add(sticker);

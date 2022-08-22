@@ -1,7 +1,9 @@
 package dev.pegasus.stickers;
 
 import android.content.Context;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
+import android.graphics.MaskFilter;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.Typeface;
@@ -166,6 +168,34 @@ public class TextSticker extends Sticker {
     public TextSticker setTypeface(@Nullable Typeface typeface) {
         textPaint.setTypeface(typeface);
         return this;
+    }
+
+    @NonNull
+    public TextSticker setTypefaceType(int typefaceType) {
+        textPaint.setTypeface(Typeface.create(getTypeFace(), typefaceType));
+        return this;
+    }
+
+    public void setUnderline(boolean isUnderline) {
+        textPaint.setUnderlineText(isUnderline);
+    }
+
+    public void setStrikeThrough(boolean isStrikeThrough) {
+        textPaint.setStrikeThruText(isStrikeThrough);
+    }
+
+    public void setShadow(float shadowRadius) {
+        textPaint.setShadowLayer(shadowRadius / 100, 0f, shadowRadius / 10, 0xFF000000);
+    }
+
+    public void setBlur(float radius) {
+        if (radius > 0) textPaint.setMaskFilter(new BlurMaskFilter(radius/100, BlurMaskFilter.Blur.NORMAL));
+        else textPaint.setMaskFilter(new MaskFilter());
+    }
+
+    @NonNull
+    public Typeface getTypeFace() {
+        return textPaint.getTypeface();
     }
 
     @NonNull
